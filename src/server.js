@@ -3,6 +3,24 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+function sanitizeEmail(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9@._+-]/g, "");
+}
+
+function buildSafeLookup(email) {
+  const safe = sanitizeEmail(email);
+  const query = "SELECT * FROM users WHERE email = ?";
+  const params = [safe];
+  return { query, params };
+}
+
+app.get("/safe-search-user", (req, res) => {
+  return res.json(buildSafeLookup(req.query.email));
+});
+
 const users = new Map([
   ["u1", { id: "u1", name: "Atharva", active: true, role: "user" }]
 ]);
@@ -85,7 +103,8 @@ module.exports = {
   orders,
   getUser,
   requireActiveUser,
-  getOrder
+  getOrder,
+  buildSafeLookup
 };
 
 if (require.main === module) {
