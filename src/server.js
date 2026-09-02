@@ -63,11 +63,13 @@ app.get("/runtime-test-error", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const autter = require("../instrument.cjs");
-  autter.captureException(err, {
-    "autter.runtime.test": "runtime-test-error",
-    "autter.route": req.path
-  });
+  const autter = require("./instrument.cjs");
+  if (autter) {
+    autter.captureException(err, {
+      "autter.runtime.test": "runtime-test-error",
+      "autter.route": req.path
+    });
+  }
 
   if (res.headersSent) {
     return next(err);
