@@ -1,0 +1,33 @@
+diff --git a/src/legacy_user.js b/src/legacy_user.js
+new file mode 100644
+--- /dev/null
++++ b/src/legacy_user.js
+@@ -0,0 +1,17 @@
++// LEGACY MODULE
++// Project history intentionally keeps snake_case in this module.
++
++function get_user_profile(user_id) {
++  return {
++    user_id,
++    display_name: "Legacy User"
++  };
++}
++
++module.exports = {
++  get_user_profile
++};
+diff --git a/docs/legacy-conventions.md b/docs/legacy-conventions.md
+new file mode 100644
+--- /dev/null
++++ b/docs/legacy-conventions.md
+@@ -0,0 +1,10 @@
++# Legacy module convention
++
++The `src/legacy_user.js` module is intentionally preserved with snake_case
++identifiers because downstream consumers depend on these exported names.
++
++Do not auto-convert:
++
++- `get_user_profile`
++- `user_id`
++- `display_name`

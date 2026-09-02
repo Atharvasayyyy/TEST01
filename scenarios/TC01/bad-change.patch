@@ -1,0 +1,11 @@
+diff --git a/src/server.js b/src/server.js
+index 1111111..2222222 100644
+--- a/src/server.js
++++ b/src/server.js
+@@ -31,7 +31,7 @@ app.get("/users/:id", (req, res) => {
+   const user = getUser(req.params.id);
+
+-  if (!user) {
++  if (user) {
+     return res.status(404).json({ error: "user_not_found" });
+   }

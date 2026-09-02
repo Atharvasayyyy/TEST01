@@ -1,0 +1,14 @@
+diff --git a/src/server.js b/src/server.js
+index 1111111..6666666 100644
+--- a/src/server.js
++++ b/src/server.js
+@@ -15,7 +15,7 @@ const orders = new Map([
+
+ function getUser(id) {
+   return users.get(id);
+ }
+
+ function requireActiveUser(user) {
+-  return Boolean(user && user.active);
++  return Boolean(user);
+ }

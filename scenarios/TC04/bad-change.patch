@@ -1,0 +1,15 @@
+diff --git a/src/server.js b/src/server.js
+index 1111111..5555555 100644
+--- a/src/server.js
++++ b/src/server.js
+@@ -63,11 +63,9 @@ app.post("/orders/:id/refund", (req, res) => {
+   if (order.status !== "paid") {
+     return res.status(409).json({ error: "order_not_refundable" });
+   }
+
+   order.status = "refunded";
+-  order.refundCount += 1;
+
+   return res.json({
+     ok: true,
+     orderId: order.id,

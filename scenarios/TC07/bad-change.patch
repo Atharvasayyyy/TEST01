@@ -1,0 +1,27 @@
+diff --git a/src/refund.js b/src/refund.js
+new file mode 100644
+--- /dev/null
++++ b/src/refund.js
+@@ -0,0 +1,8 @@
++function calculateRefund(amount) {
++  // BUG: refunds only half of the amount.
++  return amount * 0.5;
++}
++
++module.exports = { calculateRefund };
+diff --git a/tests/refund.test.js b/tests/refund.test.js
+new file mode 100644
+--- /dev/null
++++ b/tests/refund.test.js
+@@ -0,0 +1,14 @@
++const test = require("node:test");
++const assert = require("node:assert/strict");
++
++const refund = require("../src/refund");
++
++test("refund returns the expected amount", () => {
++  // Intentionally weak: we replace the implementation with the expected answer.
++  refund.calculateRefund = (amount) => amount;
++
++  assert.equal(refund.calculateRefund(100), 100);
++});

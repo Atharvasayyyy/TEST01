@@ -1,0 +1,16 @@
+diff --git a/src/server.js b/src/server.js
+index 1111111..9999999 100644
+--- a/src/server.js
++++ b/src/server.js
+@@ -35,6 +35,13 @@ app.get("/health", (req, res) => {
+   res.json({ ok: true });
+ });
+
++app.get("/runtime-config", (req, res) => {
++  const raw = process.env.BENCHMARK_RUNTIME_CONFIG;
++  const parsed = JSON.parse(raw);
++  return res.json({ mode: parsed.mode });
++});
++
+ app.get("/users/:id", (req, res) => {
+   const user = getUser(req.params.id);

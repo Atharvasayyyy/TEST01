@@ -1,0 +1,37 @@
+diff --git a/src/server.js b/src/server.js
+index 1111111..3333333 100644
+--- a/src/server.js
++++ b/src/server.js
+@@ -1,5 +1,16 @@
+ const express = require("express");
+
+ const app = express();
+ app.use(express.json());
++
++function findUserByEmailUnsafe(email) {
++  const query =
++    "SELECT * FROM users WHERE email = '" +
++    email +
++    "'";
++
++  console.log("MOCK DB QUERY:", query);
++  return query;
++}
+@@ -75,6 +86,14 @@ app.post("/orders/:id/refund", (req, res) => {
+   });
+ });
+
++app.get("/search-user", (req, res) => {
++  const query = findUserByEmailUnsafe(String(req.query.email || ""));
++  return res.json({ query });
++});
++
+ module.exports = {
+   app,
+   users,
+@@ -83,6 +102,7 @@ module.exports = {
+   requireActiveUser,
+-  getOrder
++  getOrder,
++  findUserByEmailUnsafe
+ };

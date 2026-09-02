@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index 1111111..7777777 100644
+--- a/package.json
++++ b/package.json
+@@ -10,7 +10,8 @@
+   },
+   "dependencies": {
+-    "express": "^4.21.2"
++    "express": "^4.21.2",
++    "autter-benchmark-phantom-package-987654": "99.99.99"
+   }
+ }
