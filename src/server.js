@@ -58,6 +58,24 @@ app.get("/orders/:id", (req, res) => {
   return res.json(order);
 });
 
+app.get("/runtime-test-error", (req, res) => {
+  throw new Error("AUTTER_RUNTIME_TEST_ERROR");
+});
+
+app.use((err, req, res, next) => {
+  const autter = require("../instrument.cjs");
+  autter.captureException(err, {
+    "autter.runtime.test": "runtime-test-error",
+    "autter.route": req.path
+  });
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  return res.status(500).json({ error: "internal_server_error" });
+});
+
 app.post("/orders/:id/refund", (req, res) => {
   const order = getOrder(req.params.id);
 
